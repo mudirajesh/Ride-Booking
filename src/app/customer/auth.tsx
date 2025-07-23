@@ -1,21 +1,32 @@
+import CustomButton from "@/components/shared/CustomButton"
 import CustomText from "@/components/shared/CustomText"
 import PhoneInput from "@/components/shared/PhoneInput"
+import { signin } from "@/service/authService"
 import { useWS } from "@/service/WSProvider"
 import { authStyles } from "@/styles/authStyles"
 import { commonStyles } from "@/styles/commonStyles"
 import MaterialIcons from "@expo/vector-icons/MaterialIcons"
 import React, { useState } from "react"
 import {
-    Image,
-    SafeAreaView,
-    ScrollView,
-    TouchableOpacity,
-    View,
+  Alert,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  View,
 } from "react-native"
 
 const Auth = () => {
   const { updateAccessToken } = useWS()
   const [phone, setPhone] = useState("")
+
+  const handleNext = async () => {
+    if (!phone && phone.length !== 10) {
+      Alert.alert("Bro check your phone number")
+      return
+    }
+    signin({ role: "customer", phone }, updateAccessToken)
+  }
   return (
     <SafeAreaView style={authStyles.container}>
       <ScrollView contentContainerStyle={authStyles.container}>
@@ -48,15 +59,26 @@ const Auth = () => {
       </ScrollView>
 
       <View style={authStyles.footerContainer}>
-        <TouchableOpacity style={authStyles.button}>
-          <CustomText fontFamily="Medium" variant="h7" style={authStyles.buttonText}>
-            Continue
-          </CustomText>
-        </TouchableOpacity>
-
-        <CustomText variant="h7" fontFamily="Regular" style={commonStyles.lightText}>
-          By continuing, you agree to our Terms of Service and Privacy Policy
+        <CustomText
+          variant="h8"
+          fontFamily="Regular"
+          style={[
+            commonStyles.lightText,
+            {
+              textAlign: "center",
+              marginHorizontal: 20,
+            },
+          ]}
+        >
+          By continuing, you agree to the terms and privacy policy of Rapido
         </CustomText>
+
+        <CustomButton
+          title="Next"
+          onPress={handleNext}
+          loading={false}
+          disabled={false}
+        />
       </View>
     </SafeAreaView>
   )
