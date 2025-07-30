@@ -8,7 +8,7 @@ import { Ionicons } from "@expo/vector-icons"
 import React, { FC, memo } from "react"
 import { Image, TouchableOpacity, View } from "react-native"
 import Animated, { FadeInLeft, FadeOutRight } from "react-native-reanimated"
-import CounterButton from "../../components/rider/CounterButton"
+import CounterButton from "./CounterButton"
 
 type VehicleType = "bike" | "auto" | "cabEconomy" | "cabPremium"
 

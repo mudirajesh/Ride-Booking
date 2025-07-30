@@ -11,7 +11,7 @@ import * as Location from "expo-location"
 import { StatusBar } from "expo-status-bar"
 import React, { useEffect, useState } from "react"
 import { FlatList, Image, View } from "react-native"
-import RiderRidesItem from "./RiderRidesItem"
+import RiderRidesItem from "../../components/rider/RiderRidesItem"
 
 const RiderHome = () => {
   const isFocused = useIsFocused()
